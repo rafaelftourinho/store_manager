@@ -2,7 +2,7 @@ const chai = require('chai');
 const { expect } = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
-const mockAllProducts = require('../../mocks/productMock');
+const { mockProducts, mockOneProduct } = require('../../mocks/productMock');
 const productController = require('../../../src/controllers/productController');
 const productService = require('../../../src/services/productService');
 const errorMessage = require('../../mocks/errorMessage');
@@ -12,20 +12,18 @@ chai.use(sinonChai);
 describe('Teste para a camada de Controller', function () {
   describe('Testa o funcionamento da função getAllProducts', function () {
     it('Testa funcionalidades da getAllProducts', async function () {
-      const req = {
-        mockAllProducts
-      };
-
-      sinon.stub(productService, 'getAllProducts').resolves(mockAllProducts);
-
+      const req = {};
       const res = {};
+
+      sinon.stub(productService, 'getAllProducts').resolves(mockProducts);
+
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
       await productController.getAllProducts(req, res);
 
       expect(res.status).to.have.been.calledWith(200);
-      expect(res.json).to.have.been.calledWith(mockAllProducts);
+      expect(res.json).to.have.been.calledWith(mockProducts);
     });
   });
 
@@ -34,7 +32,7 @@ describe('Teste para a camada de Controller', function () {
       const req = { params: 1 };
       const res = {};
 
-      sinon.stub(productService, 'getProductFromID').resolves(mockAllProducts[0]);
+      sinon.stub(productService, 'getProductFromID').resolves(mockOneProduct);
 
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
@@ -42,17 +40,17 @@ describe('Teste para a camada de Controller', function () {
       await productController.getProductFromID(req, res);
 
       expect(res.status).to.be.have.been.calledWith(200);
-      expect(res.json).to.be.have.been.calledWith(mockAllProducts[0]);
+      expect(res.json).to.be.have.been.calledWith(mockOneProduct);
     });
 
     it('Testa se há o retorno do erro ao passar um id inexistente', async function () {
-      const req = { params: 13 };
+      const req = { params: 86 };
       const res = {};
 
-      sinon.stub(productService, 'getProductFromID').resolves(errorMessage)
+      sinon.stub(productService, 'getProductFromID').resolves(undefined)
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.send = sinon.stub().returns(errorMessage);
 
       await productController.getProductFromID(req, res);
 

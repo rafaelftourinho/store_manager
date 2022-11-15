@@ -8,11 +8,18 @@ const getAllProducts = async (_req, res) => {
 const getProductFromID = async (req, res) => {
   const { id } = req.params;
   const product = await productService.getProductFromID(id);
-  if (!product) res.status(404).json({ message: 'Product not found' });
-  else res.status(200).json(product);
+  if (!product) return res.status(404).send({ message: 'Product not found' });
+  res.status(200).json(product);
+};
+
+const insertProduct = async (req, res) => {
+  const result = await productService.insertProduct(req.body);
+
+  return res.status(201).json(result);
 };
 
 module.exports = {
   getAllProducts,
   getProductFromID,
+  insertProduct,
 };
