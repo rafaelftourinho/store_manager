@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const productModel = require('../../../src/models/productModel');
-const { mockProducts, mockOneProduct, mockAllProducts } = require('../../mocks/productMock');
+const { mockProducts, mockOneProduct, mockAllProducts, mockInsertDb } = require('../../mocks/productMock');
 
 
 describe('Teste para a camada de Model', function () {
@@ -24,6 +24,17 @@ describe('Teste para a camada de Model', function () {
 
       expect(product).to.be.an('object');
       expect(product).to.be.deep.equal(mockOneProduct);
+    });
+    afterEach(sinon.restore);
+  });
+
+  describe('Testa o funcionamento da função insertProduct', function () {
+    it('Testa se o produto é inserido corretamente', async function () {
+      sinon.stub(connection, 'execute').resolves(mockInsertDb);
+
+      const product = await productModel.insertProduct({ name: 'Gungnir' });
+
+      expect(product).to.be.deep.equal(4);
     });
     afterEach(sinon.restore);
   });

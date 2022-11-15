@@ -33,8 +33,27 @@ const mockOneProduct = {
     name: 'Martelo de Thor',
 }
 
+const mockInsertDb = [
+  {
+    "fieldCount": 0,
+    "affectedRows": 1,
+    "insertId": 4,
+    "info": "",
+    "serverStatus": 2,
+    "warningStatus": 0
+  },
+  null
+];
+
+const newObject = {
+  "id": 4,
+  "name": 'Gungnir'
+}
+
 module.exports = {
   mockAllProducts,
   mockProducts,
   mockOneProduct,
+  mockInsertDb,
+  newObject,
 };

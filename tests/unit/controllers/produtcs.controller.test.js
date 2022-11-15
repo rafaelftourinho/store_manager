@@ -2,7 +2,7 @@ const chai = require('chai');
 const { expect } = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
-const { mockProducts, mockOneProduct } = require('../../mocks/productMock');
+const { mockProducts, mockOneProduct, newObject } = require('../../mocks/productMock');
 const productController = require('../../../src/controllers/productController');
 const productService = require('../../../src/services/productService');
 const errorMessage = require('../../mocks/errorMessage');
@@ -57,6 +57,24 @@ describe('Teste para a camada de Controller', function () {
 
       expect(res.status).to.be.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith(errorMessage)
+    });
+    afterEach(sinon.restore);
+  });
+
+    describe('Testa o funcionamento da função insertProduct', function () {
+    it('Testa se o produto é inserido corretamente', async function () {
+      sinon.stub(productService, 'insertProduct').resolves(newObject);
+
+      const req = { body: { name: 'Gungnir' }};
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await productController.insertProduct(req, res);
+
+      expect(res.status).to.be.have.calledWith(201);
+      expect(res.json).to.have.been.calledWith(newObject);
     });
     afterEach(sinon.restore);
   });
