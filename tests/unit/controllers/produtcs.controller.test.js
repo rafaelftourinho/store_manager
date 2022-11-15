@@ -25,11 +25,12 @@ describe('Teste para a camada de Controller', function () {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(mockProducts);
     });
+    afterEach(sinon.restore);
   });
 
   describe('Testa o funcionamento da função getProductFromID', function () {
     it('Testa se retorna o produto com o id passado como parâmetro', async function () {
-      const req = { params: 1 };
+      const req = { params: { id: 1 } };
       const res = {};
 
       sinon.stub(productService, 'getProductFromID').resolves(mockOneProduct);
@@ -44,18 +45,19 @@ describe('Teste para a camada de Controller', function () {
     });
 
     it('Testa se há o retorno do erro ao passar um id inexistente', async function () {
-      const req = { params: 86 };
+      const req = { params: { id: 86 } };
       const res = {};
 
       sinon.stub(productService, 'getProductFromID').resolves(undefined)
 
       res.status = sinon.stub().returns(res);
-      res.send = sinon.stub().returns(errorMessage);
+      res.json = sinon.stub().returns(errorMessage);
 
       await productController.getProductFromID(req, res);
 
       expect(res.status).to.be.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith(errorMessage)
     });
+    afterEach(sinon.restore);
   });
 });

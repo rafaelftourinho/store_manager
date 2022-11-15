@@ -13,6 +13,7 @@ describe('Teste para a camada de Service ', function () {
       expect(result).to.be.an('array');
       expect(result).to.be.deep.equal(mockAllProducts);
     });
+    afterEach(sinon.restore);
   });
 
   describe('Testa o funcionamento da função getProductFromID', function () {
@@ -24,5 +25,6 @@ describe('Teste para a camada de Service ', function () {
       expect(product).to.be.an('object');
       expect(product).to.be.deep.equal(mockOneProduct);
     });
+    afterEach(sinon.restore);
   });
 });
