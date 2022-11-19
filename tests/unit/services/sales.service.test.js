@@ -31,6 +31,7 @@ describe('Testa a camada Services', () => {
 
   describe('Testa o funcionamento da função registerSales', () => {
     it('Testa se a função cadastra corretamente a venda feita', async () => {
+      sinon.stub(productsModel, 'getProductFromID').resolves({ id: 2, name: 'Traje de encolhimento' });
       sinon.stub(salesModel, 'registerSales').resolves(returnModelMock);
 
       const sales = await salesService.registerSales(registeredProducts);
@@ -40,8 +41,9 @@ describe('Testa a camada Services', () => {
     });
 
     it('Testa se a função falha ao tentar cadastrar uma venda não registrada', async () => {
+      sinon.stub(productsModel, 'getProductFromID').onFirstCall().resolves(undefined).onSecondCall().resolves({ id: 2, name: 'Traje de encolhimento' });
+
       const sales = await salesService.registerSales(registeredWrongProducts);
-      sinon.stub(productsModel, 'getProductFromID').resolves(nome);
 
       expect(sales).to.be.an('object');
       expect(sales).to.be.deep.equal({ type: 'NOT_FOUND', message: 'Product not found' });
