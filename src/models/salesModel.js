@@ -2,8 +2,8 @@ const connection = require('./connection');
 
 const getAllSales = async () => {
   const [result] = await connection.execute(`
-    SELECT sale_id,
-    product_id,
+    SELECT sale_id as saleId,
+    product_id as productId,
     quantity,
     date
     FROM sales_products as SP
@@ -16,7 +16,18 @@ const getAllSales = async () => {
 
 const getSalesFromID = async (id) => {
   const [result] = await connection.execute(`
-    SELECT product_id, quantity FROM sales_products WHERE sale_id = ?`, [id]);
+    SELECT product_id as productId, quantity FROM sales_products WHERE sale_id = ?`, [id]);
+  return result;
+};
+
+const getSalesIdWithDate = async (id) => {
+  const [result] = await connection.execute(`
+    SELECT product_id as productId, quantity, date
+    FROM sales_products
+    INNER JOIN sales as S
+    ON S.id = sale_id
+    WHERE id = ?;
+  `, [id]);
   return result;
 };
 
@@ -54,4 +65,5 @@ module.exports = {
   getAllSales,
   getSalesFromID,
   registerSales,
+  getSalesIdWithDate,
 };

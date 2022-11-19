@@ -8,6 +8,15 @@ const getAllSales = async () => {
 
 const getSalesFromID = async (id) => {
   const result = await salesModel.getSalesFromID(id);
+
+  if (result.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
+  return result;
+};
+
+const getSalesIdWithDate = async (id) => {
+  const result = await salesModel.getSalesIdWithDate(id);
+  
+  if (result.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
   return result;
 };
 
@@ -32,4 +41,5 @@ module.exports = {
   getAllSales,
   getSalesFromID,
   registerSales,
+  getSalesIdWithDate,
 };

@@ -1,5 +1,5 @@
 const salesService = require('../services/salesService');
-const errorMessage = require('../../tests/mocks/errorMessage');
+// const errorMessage = require('../../tests/mocks/errorMessage');
 const status = require('../utils/status');
 
 const getAllSales = async (_req, res) => {
@@ -10,8 +10,21 @@ const getAllSales = async (_req, res) => {
 const getSalesFromID = async (req, res) => {
   const { id } = req.params;
   const result = await salesService.getSalesFromID(id);
-  if (!result) return res.status(404).json(errorMessage);
-  return res.status(200).json(result);
+  if (result.type) {
+    return res.status(404).json({ message: result.message });
+  }
+
+  res.status(200).json(result);
+};
+
+const getSalesIdWithDate = async (req, res) => {
+  const { id } = req.params;
+  const result = await salesService.getSalesIdWithDate(id);
+  if (result.type) {
+    return res.status(404).json({ message: result.message });
+  }
+
+  res.status(200).json(result);
 };
 
 const registerSales = async (req, res) => {
@@ -26,4 +39,5 @@ module.exports = {
   getAllSales,
   getSalesFromID,
   registerSales,
+  getSalesIdWithDate,
 };

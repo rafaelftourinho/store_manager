@@ -35,16 +35,27 @@ const validateSale = async (req, res, next) => {
   if (objSale) {
     const { error } = salesCheck.validate(objSale);
 
-  if (error) {
-    return res.status(status[error.details[0].type])
-    .json({ message: error.details[0].message });
-  }
+    if (error) {
+      return res.status(status[error.details[0].type])
+      .json({ message: error.details[0].message });
+    }
   }
 
   next();
 };
 
+// const validationSales = async (req, res, next) => {
+//   const { id } = req.params;
+
+//   productCheck.validate({ id });
+
+//   if (!id) return res.status(404).json({ message: 'Sales not found' });
+
+//   next();
+// };
+
 module.exports = {
   validateName,
   validateSale,
+  // validationSales,
 };
