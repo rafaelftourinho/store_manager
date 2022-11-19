@@ -3,7 +3,6 @@ const sinon = require('sinon');
 const salesModel = require('../../../src/models/salesModel');
 const productsModel = require('../../../src/models/productModel');
 const salesService = require('../../../src/services/salesService');
-const errorMessage = require('../../mocks/errorMessage');
 const { allSalesArrayMock, allSalesMock, registeredProducts, returnModelMock, nome, registeredWrongProducts } = require('../../mocks/salesMock');
 
 describe('Testa a camada Services', () => {
