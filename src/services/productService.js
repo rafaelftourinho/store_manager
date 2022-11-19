@@ -30,6 +30,7 @@ const updateProduct = async (name, id) => {
 
 const deleteProduct = async (id) => {
   const idProduct = await productModel.getProductFromID(id);
+  console.log(idProduct);
 
   if (!idProduct) return { type: 'NOT_FOUND', message: 'Product not found' };
 
