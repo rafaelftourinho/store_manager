@@ -5,6 +5,7 @@ const status = {
   'string.min': 422,
   HTTP_OK: 201,
   NOT_FOUND: 404,
+  NOT_UPDATED: 404,
   'number.exist': 404,
 };
 
