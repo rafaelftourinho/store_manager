@@ -51,15 +51,15 @@ describe('Teste para a camada de Controller', () => {
       const req = { params: { id: 99 } };
       const res = {};
 
-      sinon.stub(salesService, 'getSalesFromID').resolves(undefined);
+      sinon.stub(salesService, 'getSalesIdWithDate').resolves({ type: 'NOT_FOUND', message: 'Sale not found' });
 
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(errorMessage);
 
-      await salesController.getSalesFromID(req, res);
+      await salesController.getSalesIdWithDate(req, res);
 
       expect(res.status).to.have.been.calledWith(HTTP_NOT_FOUND);
-      expect(res.json).to.have.been.calledWith(errorMessage);
+      expect(res.json).to.have.been.calledWith({ message: 'Sale not found'});
     });
     afterEach(sinon.restore);
   });

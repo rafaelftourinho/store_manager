@@ -1,9 +1,10 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const salesModel = require('../../../src/models/salesModel');
+const productsModel = require('../../../src/models/productModel');
 const salesService = require('../../../src/services/salesService');
 const errorMessage = require('../../mocks/errorMessage');
-const { allSalesArrayMock, allSalesMock, insertMockData, registeredProducts, wrongSales, returnModelMock } = require('../../mocks/salesMock');
+const { allSalesArrayMock, allSalesMock, registeredProducts, returnModelMock, nome, registeredWrongProducts } = require('../../mocks/salesMock');
 
 describe('Testa a camada Services', () => {
   describe('Testa o funcionamento da função getAllSales', () => {
@@ -31,23 +32,20 @@ describe('Testa a camada Services', () => {
   describe('Testa o funcionamento da função registerSales', () => {
     it('Testa se a função cadastra corretamente a venda feita', async () => {
       sinon.stub(salesModel, 'registerSales').resolves(returnModelMock);
-      // sinon.stub(salesModel, 'getSalesFromID').resolves(registeredProducts);
-      // const id = await salesService.getSalesFromID(1);
-      // const sales = await salesService.registerSales(id);
+
       const sales = await salesService.registerSales(registeredProducts);
-      // console.log(sales);
 
       expect(sales).to.be.an('object');
-      // expect(sales).to.be.deep.equal(registeredProducts);
       expect(returnModelMock).to.be.deep.equal(sales);
     });
 
     // it('Testa se a função falha ao tentar cadastrar uma venda não registrada', async () => {
-    //   sinon.stub(salesModel, 'registerSales').resolves({ type: 'NOT_FOUND', message: 'Product not found' });
+    //   sinon.stub(productsModel, 'getProductFromID').resolves(nome);
 
-    //   const sales = await salesService.registerSales(registeredProducts);
+    //   const sales = await salesService.registerSales(registeredWrongProducts);
 
-    //   expect(sales).to.be(errorMessage);
+    //   expect(sales).to.be.an('object');
+    //   expect(sales).to.be.deep.equal({ type: 'NOT_FOUND', message: 'Product not found' });
     // });
     afterEach(sinon.restore);
   });

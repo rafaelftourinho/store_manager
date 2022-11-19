@@ -80,6 +80,7 @@ const returnModelMock = {
 
 const registeredWrongProducts = [
   {
+    "productId": 99,
     "quantity": 1
   },
   {
@@ -90,6 +91,9 @@ const registeredWrongProducts = [
 
 const wrongSales = { type: 'NOT_FOUND', message: 'Product not found' }
 
+const nome =
+  [undefined, { id: 2, name: 'Traje de encolhimento' }];
+
 module.exports = {
   allSalesArrayMock,
   allSalesMock,
@@ -98,4 +102,5 @@ module.exports = {
   registeredWrongProducts,
   returnModelMock,
   wrongSales,
+  nome,
 }

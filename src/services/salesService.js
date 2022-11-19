@@ -15,7 +15,7 @@ const getSalesFromID = async (id) => {
 
 const getSalesIdWithDate = async (id) => {
   const result = await salesModel.getSalesIdWithDate(id);
-  
+
   if (result.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
   return result;
 };
