@@ -1,4 +1,5 @@
 const productModel = require('../models/productModel');
+const { returnProductError, returnUpdateError } = require('../../tests/mocks/returnErrors');
 
 const getAllProducts = async () => {
   const product = await productModel.getAllProducts();
@@ -18,10 +19,10 @@ const insertProduct = async ({ name }) => {
 
 const updateProduct = async (name, id) => {
   const productId = await productModel.getProductFromID(id);
-  if (!productId) return { type: 'NOT_FOUND', message: 'Product not found' };
+  if (!productId) return returnProductError;
 
   const affectedRows = await productModel.updateProduct(name, id);
-  if (!affectedRows) return { type: 'NOT_UPDATED', message: 'Não é possível atualizar o produto' };
+  if (!affectedRows) return returnUpdateError;
 
   const result = await productModel.getProductFromID(id);
 
@@ -31,7 +32,7 @@ const updateProduct = async (name, id) => {
 const deleteProduct = async (id) => {
   const idProduct = await productModel.getProductFromID(id);
 
-  if (!idProduct) return { type: 'NOT_FOUND', message: 'Product not found' };
+  if (!idProduct) return returnProductError;
 
   await productModel.deleteProduct(id);
 };

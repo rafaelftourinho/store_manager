@@ -3,20 +3,20 @@ const status = require('../utils/status');
 
 const getAllProducts = async (_req, res) => {
   const product = await productService.getAllProducts();
-  res.status(200).json(product);
+  res.status(status.HTTP_GET_OK).json(product);
 };
 
 const getProductFromID = async (req, res) => {
   const { id } = req.params;
   const product = await productService.getProductFromID(id);
-  if (!product) return res.status(404).json({ message: 'Product not found' });
-  res.status(200).json(product);
+  if (!product) return res.status(status.NOT_FOUND).json({ message: 'Product not found' });
+  res.status(status.HTTP_GET_OK).json(product);
 };
 
 const insertProduct = async (req, res) => {
   const result = await productService.insertProduct(req.body);
 
-  return res.status(201).json(result);
+  return res.status(status.HTTP_INSERT_OK).json(result);
 };
 
 const updateProduct = async (req, res) => {
@@ -27,7 +27,7 @@ const updateProduct = async (req, res) => {
 
   if (update.type) return res.status(status[update.type]).json({ message: update.message });
 
-  return res.status(200).json(update);
+  return res.status(status.HTTP_GET_OK).json(update);
 };
 
 const deleteProduct = async (req, res) => {
@@ -39,14 +39,14 @@ const deleteProduct = async (req, res) => {
     return res.status(status[productDeleted.type])
       .json({ message: productDeleted.message });
   }
-  res.status(204).json({ message: 'Product deleted successfully' });
+  res.status(status.HTTP_DELETE_OK).json({ message: 'Product deleted successfully' });
 };
 
 const searchProduct = async (req, res) => {
   const { q } = req.query;
 
   const result = await productService.searchProduct(q);
-  return res.status(200).json(result);
+  return res.status(status.HTTP_GET_OK).json(result);
 };
 
 module.exports = {

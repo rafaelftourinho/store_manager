@@ -1,5 +1,6 @@
 const salesModel = require('../models/salesModel');
 const productsModel = require('../models/productModel');
+const { returnSalesError, returnProductError } = require('../../tests/mocks/returnErrors');
 
 const getAllSales = async () => {
   const result = await salesModel.getAllSales();
@@ -9,14 +10,14 @@ const getAllSales = async () => {
 const getSalesFromID = async (id) => {
   const result = await salesModel.getSalesFromID(id);
 
-  if (!result) return { type: 'NOT_FOUND', message: 'Sale not found' };
+  if (!result) return returnSalesError;
   return result;
 };
 
 const getSalesIdWithDate = async (id) => {
   const result = await salesModel.getSalesIdWithDate(id);
 
-  if (result.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
+  if (result.length === 0) return returnSalesError;
   return result;
 };
 
@@ -29,7 +30,7 @@ const registerSales = async (sales) => {
   const test = await Promise.all(validate);
 
   if (test.some((item) => !item)) {
-    return { type: 'NOT_FOUND', message: 'Product not found' };
+    return returnProductError;
   }
 
   const result = await salesModel.registerSales(sales);
@@ -40,7 +41,7 @@ const registerSales = async (sales) => {
 const deleteSale = async (id) => {
   const idSale = await salesModel.getSalesFromID(id);
 
-  if (idSale.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
+  if (idSale.length === 0) return returnSalesError;
 
   await salesModel.deleteSale(id);
 };
@@ -48,7 +49,7 @@ const deleteSale = async (id) => {
 const updateSales = async (sales, saleId) => {
   const idCheck = await salesModel.getSalesFromID(saleId);
 
-  if (idCheck.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
+  if (idCheck.length === 0) return returnSalesError;
 
   const salesCheck = sales.map(async (item) => {
     const result = await productsModel.getProductFromID(item.productId);
@@ -67,7 +68,7 @@ const updateSales = async (sales, saleId) => {
   });
 
   await Promise.all(resultSales);
-  
+
   const result = await salesModel.getSalesFromID(saleId);
   return result;
 };
