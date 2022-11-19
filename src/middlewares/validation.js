@@ -44,18 +44,7 @@ const validateSale = async (req, res, next) => {
   next();
 };
 
-// const validationSales = async (req, res, next) => {
-//   const { id } = req.params;
-
-//   productCheck.validate({ id });
-
-//   if (!id) return res.status(404).json({ message: 'Sales not found' });
-
-//   next();
-// };
-
 module.exports = {
   validateName,
   validateSale,
-  // validationSales,
 };
