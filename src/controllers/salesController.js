@@ -1,5 +1,4 @@
 const salesService = require('../services/salesService');
-// const errorMessage = require('../../tests/mocks/errorMessage');
 const status = require('../utils/status');
 
 const getAllSales = async (_req, res) => {
@@ -30,7 +29,7 @@ const getSalesIdWithDate = async (req, res) => {
 const registerSales = async (req, res) => {
   const result = await salesService.registerSales(req.body);
 
-  if (result.type) return res.status(status[result.type]).json({ message: 'Product not found' });
+  if (result.type) return res.status(status[result.type]).json({ message: result.message });
 
   return res.status(status.HTTP_OK).json(result);
 };
@@ -43,7 +42,7 @@ const deleteSale = async (req, res) => {
   if (saleDeleted) {
     return res.status(status[saleDeleted.type]).json({ message: saleDeleted.message });
   }
-  
+
   res.status(204).json();
 };
 

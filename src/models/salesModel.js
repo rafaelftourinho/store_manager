@@ -15,7 +15,7 @@ const getAllSales = async () => {
 };
 
 const getSalesFromID = async (id) => {
-  const [[result]] = await connection.execute(`
+  const [result] = await connection.execute(`
     SELECT product_id as productId, quantity FROM sales_products WHERE sale_id = ?`, [id]);
   return result;
 };

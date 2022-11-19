@@ -9,7 +9,7 @@ const getAllSales = async () => {
 const getSalesFromID = async (id) => {
   const result = await salesModel.getSalesFromID(id);
 
-  if (result.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
+  if (!result) return { type: 'NOT_FOUND', message: 'Sale not found' };
   return result;
 };
 
@@ -40,7 +40,7 @@ const registerSales = async (sales) => {
 const deleteSale = async (id) => {
   const idSale = await salesModel.getSalesFromID(id);
 
-  if (!idSale) return { type: 'NOT_FOUND', message: 'Sale not found' };
+  if (idSale.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
 
   await salesModel.deleteSale(id);
 };
