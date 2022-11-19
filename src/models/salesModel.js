@@ -16,7 +16,7 @@ const getAllSales = async () => {
 
 const getSalesFromID = async (id) => {
   const [result] = await connection.execute(`
-    SELECT product_id, quantity FROM sales_product WHERE sale_id = ?`, [id]);
+    SELECT product_id, quantity FROM sales_products WHERE sale_id = ?`, [id]);
   return result;
 };
 
@@ -38,11 +38,11 @@ const registerSales = async (sales) => {
     return result;
   });
 
-  const test = await Promise.all(salesRegistered);
+  await Promise.all(salesRegistered);
 
-  if (test.some((item) => !item.affectedRows)) {
-    return { message: 'Deu treta, bicho' };
-  }
+  // if (test.some((item) => !item.affectedRows)) {
+  //   return { message: 'Deu treta, bicho' };
+  // }
 
   return {
     id: saleId,
