@@ -39,14 +39,13 @@ describe('Testa a camada Services', () => {
       expect(returnModelMock).to.be.deep.equal(sales);
     });
 
-    // it('Testa se a função falha ao tentar cadastrar uma venda não registrada', async () => {
-    //   sinon.stub(productsModel, 'getProductFromID').resolves(nome);
+    it('Testa se a função falha ao tentar cadastrar uma venda não registrada', async () => {
+      const sales = await salesService.registerSales(registeredWrongProducts);
+      sinon.stub(productsModel, 'getProductFromID').resolves(nome);
 
-    //   const sales = await salesService.registerSales(registeredWrongProducts);
-
-    //   expect(sales).to.be.an('object');
-    //   expect(sales).to.be.deep.equal({ type: 'NOT_FOUND', message: 'Product not found' });
-    // });
+      expect(sales).to.be.an('object');
+      expect(sales).to.be.deep.equal({ type: 'NOT_FOUND', message: 'Product not found' });
+    });
     afterEach(sinon.restore);
   });
 });
