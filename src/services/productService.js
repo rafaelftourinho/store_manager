@@ -34,7 +34,9 @@ const deleteProduct = async (id) => {
 
   if (!idProduct) return returnProductError;
 
-  await productModel.deleteProduct(id);
+  const deletedProduct = await productModel.deleteProduct(id);
+
+  return deletedProduct;
 };
 
 const searchProduct = async (query) => {

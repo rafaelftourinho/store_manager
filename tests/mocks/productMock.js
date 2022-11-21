@@ -50,10 +50,52 @@ const newObject = {
   "name": 'Gungnir'
 }
 
+const updateMockDb = [
+  {
+    fieldCount: 0,
+    affectedRows: 0,
+    insertId: 0,
+    info: 'Rows matched: 0  Changed: 0  Warnings: 0',
+    serverStatus: 2,
+    warningStatus: 0,
+    changedRows: 0,
+  }
+];
+
+const updateMockIdDb = [
+  {
+    fieldCount: 0,
+    affectedRows: 0,
+    insertId: 0,
+    info: 'Rows matched: 0  Changed: 0  Warnings: 0',
+    serverStatus: 2,
+    warningStatus: 0,
+    changedRows: 0,
+  }
+];
+
+const deletedProductMockModel = [{
+  "fieldCount": 0,
+  "affectedRows": 1,
+  "insertId": 0,
+  "info": "",
+  "serverStatus": 2,
+  "warningStatus": 0
+}];
+
+const mockWrongProduct = {
+  id: 99,
+  name: 'Assassin Dagger'
+}
+
 module.exports = {
   mockAllProducts,
   mockProducts,
   mockOneProduct,
   mockInsertDb,
   newObject,
+  updateMockDb,
+  updateMockIdDb,
+  deletedProductMockModel,
+  mockWrongProduct,
 };

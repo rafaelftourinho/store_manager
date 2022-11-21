@@ -77,5 +77,29 @@ describe('Teste para a camada de Controller', function () {
       expect(res.json).to.have.been.calledWith(newObject);
     });
     afterEach(sinon.restore);
+    });
+
+  describe('Testa o funcionamento da função updateProduct', () => {
+    it('Testa se o produto é atualizado com sucesso', async () => {
+      sinon.stub(productService, 'updateProduct').resolves();
+    });
+    afterEach(sinon.restore);
+  });
+
+  describe('Testa o funcionamento da função deleteProduct', () => {
+    it('Testa se o produto é deletado com sucesso', async () => {
+      sinon.stub(productService, 'deleteProduct').resolves(undefined);
+
+      const req = {params: { id: 2 }};
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await productController.deleteProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+      expect(res.json).to.have.been.calledWith({ message: 'Product deleted successfully' });
+    });
   });
 });
