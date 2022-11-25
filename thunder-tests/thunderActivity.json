@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "dd907d24-980f-4761-a7bf-e223d4a51a48",
+    "colId": "history",
+    "containerId": "",
+    "name": "https://localhost:3000/sales",
+    "url": "https://localhost:3000/sales",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-11-21T20:53:14.619Z",
+    "modified": "2022-11-21T20:53:14.619Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "bbf74878-fc69-448e-833d-81e2b6211dbd",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/sales",
+    "url": "http://localhost:3000/sales",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-11-21T20:53:46.382Z",
+    "modified": "2022-11-21T20:53:46.382Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]
