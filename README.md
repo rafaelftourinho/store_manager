@@ -43,7 +43,7 @@ Uma API Rest trata-se de um sistema de gerenciamento de vendas, onde será poss�
 
 ```bash
 # Clone o repositório
-  git clone git@github.com:marlondlacerda/store_manager.git
+  git clone git@github.com:rafaelftourinho/store_manager.git
 # Entre na pasta do repositório que você acabou de clonar:
   cd store_manager
 # Instale as dependências e inicialize o projeto
